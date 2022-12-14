@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="Task4Test" tests="1" skipped="0" failures="0" errors="0" timestamp="2022-12-14T17:42:56" hostname="DESKTOP-JA25RKB" time="0.558">
+  <properties/>
+  <testcase name="start" classname="Task4Test" time="0.558"/>
+  <system-out><![CDATA[?[1;31m
+Start test 1?[0m
+> park KA-01-HH-9999 White
+Sorry, a parking lot has not been created.
+> create 3
+Created a parking lot with 3 spots.
+> status
+Parking lot is empty.
+> park KA-01-HH-9999 White
+White car parked in spot 1.
+> park KA-01-HH-3672 Green
+Green car parked in spot 2.
+> park Rs-P-N-21 Red
+Red car parked in spot 3.
+> leave 2
+Spot 2 is free.
+> status
+1 KA-01-HH-9999 White
+3 Rs-P-N-21 Red
+> exit
+?[1;31m
+Start test 2?[0m
+> park KA-01-HH-9999 White
+Sorry, a parking lot has not been created.
+> leave 1
+Sorry, a parking lot has not been created.
+> status
+Sorry, a parking lot has not been created.
+> exit
+?[1;31m
+Start test 3?[0m
+> create 3
+Created a parking lot with 3 spots.
+> park KA-01-HH-9999 White
+White car parked in spot 1.
+> park KA-01-HH-9998 Red
+Red car parked in spot 2.
+> status
+1 KA-01-HH-9999 White
+2 KA-01-HH-9998 Red
+> create 1
+Created a parking lot with 1 spots.
+> status
+Parking lot is empty.
+> park KA-01-HH-9999 Black
+Black car parked in spot 1.
+> status
+1 KA-01-HH-9999 Black
+> park KA-01-HH-9998 Black
+Sorry, the parking lot is full.
+> exit
+]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>
