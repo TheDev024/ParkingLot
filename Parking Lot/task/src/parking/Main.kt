@@ -7,18 +7,31 @@ data class Spot(
 }
 
 class ParkingLot(numberOfSpots: Int = 20) {
-    private val lot: Array<Spot> = Array(numberOfSpots) { Spot(it + 1, true, null, null) }
+    private val lot: Array<Spot>
+
+    init {
+        this.lot = Array(numberOfSpots) { Spot(it + 1, true, null, null) }
+    }
 
     fun status(): String = if (lot.any { !it.free }) lot.filter { !it.free }.joinToString("\n")
     else "Parking lot is empty."
 
-    fun park(info: String): String {
-        val carInfo = info.split(" ")
-        val regNum = carInfo[0]
-        val color = carInfo[1]
+    fun findByRegNum(regNum: String): String = lot.firstOrNull { it.craRegNum == regNum }?.number?.toString()
+        ?: "No cars with registration number $regNum were found."
+
+    fun findCarsByColor(color: String): String =
+        if (lot.any { it.carColor == color.lowercase() }) lot.filter { it.carColor == color.lowercase() }
+            .map { it.craRegNum }.joinToString(", ") else "No cars with color $color were found."
+
+    fun findSpotsByColor(color: String): String =
+        if (lot.any { it.carColor == color.lowercase() }) lot.filter { it.carColor == color.lowercase() }
+            .map { it.number }.joinToString(", ") else "No cars with color $color were found."
+
+
+    fun park(regNum: String, color: String): String {
         for (i in lot.indices) if (lot[i].free) {
             lot[i].free = false
-            lot[i].carColor = color
+            lot[i].carColor = color.lowercase()
             lot[i].craRegNum = regNum
             return "$color car parked in spot ${i + 1}."
         }
@@ -48,11 +61,17 @@ fun main() {
         } else if (command == "exit") break
         else if (lot != null) println(
             when (commands[0]) {
-                "park" -> lot.park(command.removePrefix("park "))
+                "park" -> lot.park(commands[1], commands[2])
 
-                "leave" -> lot.leave(command.removePrefix("leave ").toInt())
+                "leave" -> lot.leave(commands[1].toInt())
 
                 "status" -> lot.status()
+
+                "reg_by_color" -> lot.findCarsByColor(commands[1])
+
+                "spot_by_color" -> lot.findSpotsByColor(commands[1])
+
+                "spot_by_reg" -> lot.findByRegNum(commands[1])
 
                 else -> "Invalid command!"
             }
